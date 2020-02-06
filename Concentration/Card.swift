@@ -9,15 +9,16 @@
 import Foundation
 
 //卡牌结构体
-struct Card {
+struct Card
+{
     var isFaceup = false
     var isMatched = false
     var indentifier: Int
     
     //每张卡牌生成唯一的indentifier
-    static var indentifierFactory = 0
+    private static var indentifierFactory = 0
     
-    static func getUniqueIndentifier() -> Int{
+    private static func getUniqueIndentifier() -> Int{
         indentifierFactory += 1
         return indentifierFactory
     }

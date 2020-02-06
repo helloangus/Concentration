@@ -10,12 +10,12 @@ import Foundation
 
 class Contentration{
     
-    var cards = [Card]()    //设置卡牌数组
+    private(set)  var cards = [Card]()    //设置卡牌数组
     
     var emojiRandomIndex = Array<Int>() //设置emoji随机编号
     
     //计算属性，当只有一张卡牌被翻开时有值，为其索引
-    var indexOfOneAndOnlyFacedUpCard: Int?{
+    private var indexOfOneAndOnlyFacedUpCard: Int?{
         
         //返回正确的只有一张被翻开的牌的索引
         get{
@@ -45,6 +45,9 @@ class Contentration{
     
     //选中则翻牌
     func chooseCard(at index:  Int) -> Bool {
+        
+        //断言，确保Model中的card数UI中能够满足，否则程序崩溃
+        assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index): chosen index not in the cards")
         
         //新翻的牌没有标记为匹配
         if !cards[index].isMatched {
@@ -89,6 +92,9 @@ class Contentration{
         
     //生成对应数量的卡牌
     init(numberOfPairsOfCards: Int, emojiChoicesCount: Int) {
+        //断言，确保最少有一对卡牌，否则程序崩溃
+        assert(numberOfPairsOfCards > 0, "Concentration.init(at: \(numberOfPairsOfCards): must have at least one pair of cards")
+        
         for index in 1...numberOfPairsOfCards{
             if index == 1 {
                 let card = Card(newGame: true)
